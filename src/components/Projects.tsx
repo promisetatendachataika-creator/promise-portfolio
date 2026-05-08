@@ -8,7 +8,7 @@ const projects = [
     description: "A comprehensive solution for local retail businesses to track stock levels, sales, and predictive restock alerts.",
     image: "https://picsum.photos/seed/inventory/800/600",
     tags: ["React", "Java", "Spring Boot", "MySQL"],
-    github: "#",
+    github: "https://github.com/promisetatendachataika-creator/chats-and-sons-app",
     demo: "https://chatsandsons.netlify.app",
     accent: "bg-blue-500",
   },
@@ -97,7 +97,7 @@ export default function Projects() {
 
                 <div className="flex items-center justify-between pt-5 border-t border-border">
                   <div className="flex gap-4">
-                    <a href={project.github} className="text-text-dim hover:text-brand text-xs font-bold uppercase tracking-widest transition-colors flex items-center gap-1.5 border-b border-transparent hover:border-brand">
+                    <a href={project.github} target="_blank" rel="noopener noreferrer" className="text-text-dim hover:text-brand text-xs font-bold uppercase tracking-widest transition-colors flex items-center gap-1.5 border-b border-transparent hover:border-brand">
                       <Github size={14} /> GitHub
                     </a>
                     {project.demo && project.demo !== "#" && (
@@ -106,14 +106,6 @@ export default function Projects() {
                       </a>
                     )}
                   </div>
-                  
-                  <motion.a
-                    href="#"
-                    whileHover={{ x: 3 }}
-                    className="text-[10px] font-bold uppercase tracking-[0.2em] text-brand flex items-center gap-1.5"
-                  >
-                    View Case Study
-                  </motion.a>
                 </div>
               </div>
             </motion.div>
