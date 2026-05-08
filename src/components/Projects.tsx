@@ -4,6 +4,15 @@ import { Github, ExternalLink, Code, Layers } from "lucide-react";
 
 const projects = [
   {
+    title: "Telecom License Regulator",
+    description: "A React + TypeScript web application for managing telecom license applications, tracking fees, comparing licenses, and generating AI-powered compliance reports.",
+    image: "https://picsum.photos/seed/telecom/800/600",
+    tags: ["React", "TypeScript", "Firebase", "Gemini AI", "Vite"],
+    github: "https://github.com/promisetatendachataika-creator/Telecom-Licence-Regulator",
+    demo: "https://telecommunication.netlify.app",
+    accent: "bg-cyan-500",
+  },
+  {
     title: "Inventory Management System",
     description: "A comprehensive solution for local retail businesses to track stock levels, sales, and predictive restock alerts.",
     image: "https://picsum.photos/seed/inventory/800/600",
