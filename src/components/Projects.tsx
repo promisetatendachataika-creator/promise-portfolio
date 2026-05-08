@@ -9,7 +9,7 @@ const projects = [
     image: "https://picsum.photos/seed/telecom/800/600",
     tags: ["React", "TypeScript", "Firebase", "Gemini AI", "Vite"],
     github: "https://github.com/promisetatendachataika-creator/Telecom-Licence-Regulator",
-    demo: "https://telecomunication.netlify.app",
+    demo: "https://telecomunication1.netlify.app",
     accent: "bg-cyan-500",
   },
   {
