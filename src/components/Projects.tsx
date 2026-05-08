@@ -9,7 +9,7 @@ const projects = [
     image: "https://picsum.photos/seed/inventory/800/600",
     tags: ["React", "Java", "Spring Boot", "MySQL"],
     github: "#",
-    demo: "#",
+    demo: "https://chatsandsons.netlify.app",
     accent: "bg-blue-500",
   },
   {
@@ -100,6 +100,11 @@ export default function Projects() {
                     <a href={project.github} className="text-text-dim hover:text-brand text-xs font-bold uppercase tracking-widest transition-colors flex items-center gap-1.5 border-b border-transparent hover:border-brand">
                       <Github size={14} /> GitHub
                     </a>
+                    {project.demo && project.demo !== "#" && (
+                      <a href={project.demo} target="_blank" rel="noopener noreferrer" className="text-text-dim hover:text-brand text-xs font-bold uppercase tracking-widest transition-colors flex items-center gap-1.5 border-b border-transparent hover:border-brand">
+                        <ExternalLink size={14} /> Live Site
+                      </a>
+                    )}
                   </div>
                   
                   <motion.a
