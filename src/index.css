@@ -18,8 +18,19 @@
 }
 
 :root {
-  --brand: #7c3aed;
-  --brand-light: #a78bfa;
+  --brand: #2dd4bf;
+  --brand-light: #5eead4;
+  --bg: #050708;
+  --surface: #0f1720;
+  --surface-lighter: #111827;
+  --border: #23303f;
+  --text-main: #f8fafc;
+  --text-dim: #94a3b8;
+}
+
+:root.light {
+  --brand: #2dd4bf;
+  --brand-light: #5eead4;
   --bg: #fafafa;
   --surface: #ffffff;
   --surface-lighter: #f4f4f5;
@@ -28,23 +39,16 @@
   --text-dim: #52525b;
 }
 
-:root.dark {
-  --brand: #a78bfa;
-  --brand-light: #c4b5fd;
-  --bg: #050505;
-  --surface: #121212;
-  --surface-lighter: #1e1e20;
-  --border: #27272a;
-  --text-main: #f4f4f5;
-  --text-dim: #a1a1aa;
-}
-
 @layer base {
   html {
     scroll-behavior: smooth;
+    min-height: 100%;
+    background-image: radial-gradient(circle at top left, rgba(45, 212, 191, 0.08), transparent 24%),
+      radial-gradient(circle at bottom right, rgba(56, 189, 248, 0.06), transparent 28%);
   }
   
   body {
+    min-height: 100vh;
     background-color: var(--color-bg);
     color: var(--color-text-main);
     font-family: var(--font-sans);
@@ -68,5 +72,11 @@
     background: linear-gradient(to right, var(--color-brand), var(--color-brand-light));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+  }
+
+  .glass {
+    background: rgba(15, 23, 32, 0.72);
+    border: 1px solid rgba(45, 212, 191, 0.12);
+    backdrop-filter: blur(16px);
   }
 }

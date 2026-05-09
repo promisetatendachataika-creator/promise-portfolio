@@ -31,9 +31,9 @@ export default function Header() {
   useEffect(() => {
     const root = window.document.documentElement;
     if (theme === "dark") {
-      root.classList.add("dark");
+      root.classList.remove("light");
     } else {
-      root.classList.remove("dark");
+      root.classList.add("light");
     }
     localStorage.setItem("theme", theme);
   }, [theme]);
@@ -59,7 +59,6 @@ export default function Header() {
               <span className="w-10 h-10 bg-brand rounded-lg flex items-center justify-center text-black font-black text-lg group-hover:rotate-12 transition-transform shadow-lg shadow-brand/20">PC</span>
               <div className="flex flex-col">
                 <span className="text-text-main text-sm font-bold uppercase tracking-tighter leading-none">Promise Chataika</span>
-                <span className="text-[10px] text-brand font-bold uppercase tracking-[0.2em] leading-none mt-1">Engineer</span>
               </div>
             </a>
           </motion.div>

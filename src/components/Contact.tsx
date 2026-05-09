@@ -59,7 +59,7 @@ export default function Contact() {
             <div className="flex gap-4 mt-16">
               {[
                 { icon: Github, href: "https://github.com/promisetatendachataika-creator" },
-                { icon: Linkedin, href: "https://www.linkedin.com/me?trk=p_mwlite_feed-secondary_nav" },
+                { icon: Linkedin, href: "https://www.linkedin.com/in/promise-chataika-03178a335" },
               ].map((item, i) => (
                 <a
                   key={i}
@@ -79,32 +79,32 @@ export default function Contact() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="p-8 md:p-12 bg-brand rounded-2xl relative"
+            className="p-8 md:p-12 bg-surface border border-white/10 rounded-3xl relative"
           >
-            <h3 className="text-2xl font-bold mb-6 text-black uppercase tracking-tighter">Start a conversation</h3>
+            <h3 className="text-2xl font-bold mb-6 uppercase tracking-tighter text-text-main">Start a conversation</h3>
             
-            <form className="space-y-4" onSubmit={handleSubmit}>
+            <form className="space-y-5" onSubmit={handleSubmit}>
               <div className="grid gap-4">
                 <input
                   type="text"
                   placeholder="Your Name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full px-4 py-3 bg-black/10 border border-black/10 rounded-lg focus:outline-none focus:border-black/30 transition-all text-black placeholder:text-black/50 text-sm font-medium"
+                  className="w-full px-4 py-4 bg-white/5 border border-white/10 rounded-2xl focus:outline-none focus:border-brand focus:ring-2 focus:ring-brand/10 transition-all text-white placeholder:text-white/60 text-sm font-medium"
                 />
                 <input
                   type="email"
                   placeholder="Your Email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-4 py-3 bg-black/10 border border-black/10 rounded-lg focus:outline-none focus:border-black/30 transition-all text-black placeholder:text-black/50 text-sm font-medium"
+                  className="w-full px-4 py-4 bg-white/5 border border-white/10 rounded-2xl focus:outline-none focus:border-brand focus:ring-2 focus:ring-brand/10 transition-all text-white placeholder:text-white/60 text-sm font-medium"
                 />
                 <textarea
-                  rows={3}
+                  rows={4}
                   placeholder="Your Message..."
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  className="w-full px-4 py-3 bg-black/10 border border-black/10 rounded-lg focus:outline-none focus:border-black/30 transition-all text-black placeholder:text-black/50 text-sm font-medium resize-none"
+                  className="w-full px-4 py-4 bg-white/5 border border-white/10 rounded-2xl focus:outline-none focus:border-brand focus:ring-2 focus:ring-brand/10 transition-all text-white placeholder:text-white/60 text-sm font-medium resize-none"
                 />
               </div>
 
@@ -112,7 +112,7 @@ export default function Contact() {
                 type="submit"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="w-full py-4 bg-black text-white font-bold rounded-lg flex items-center justify-center gap-3 transition-all hover:bg-white/10 hover:text-white"
+                className="w-full py-4 bg-brand text-slate-950 font-bold rounded-full flex items-center justify-center gap-3 transition-all hover:opacity-90"
               >
                 Send Message
                 <Send size={16} />

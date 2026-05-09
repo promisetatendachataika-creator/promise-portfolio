@@ -1,58 +1,64 @@
 import React from "react";
 import { motion } from "motion/react";
-import { Laptop, Server, BrainCircuit, ShieldCheck, Palette } from "lucide-react";
+import { Laptop, Server, BrainCircuit, Palette, ShieldCheck } from "lucide-react";
 
 const skillCategories = [
   {
     title: "Full-Stack Development",
     icon: Laptop,
     skills: ["React", "JavaScript", "CSS3", "HTML5", "TypeScript", "Tailwind CSS"],
-    color: "from-blue-500/20 to-cyan-500/20",
+    color: "from-cyan-500/10 to-sky-500/10",
   },
   {
     title: "Backend & API",
     icon: Server,
     skills: ["Java", "Spring Boot", "Node.js", "Express", "REST APIs"],
-    color: "from-green-500/20 to-emerald-500/20",
+    color: "from-emerald-500/10 to-lime-500/10",
   },
   {
     title: "AI/ML & Data Science",
     icon: BrainCircuit,
     skills: ["Python", "Scikit-learn", "TensorFlow", "Data Analysis", "NumPy"],
-    color: "from-purple-500/20 to-pink-500/20",
+    color: "from-violet-500/10 to-fuchsia-500/10",
   },
   {
     title: "Design",
     icon: Palette,
     skills: ["Visual Asset Design", "UI/UX Prototyping"],
-    color: "from-violet-500/20 to-fuchsia-500/20",
+    color: "from-rose-500/10 to-pink-500/10",
   },
   {
     title: "Core Engineering",
     icon: ShieldCheck,
     skills: ["C#", "MySQL", "Oracle", "Git", "Cisco Packet Tracer", "Network Engineering"],
-    color: "from-orange-500/20 to-amber-500/20",
+    color: "from-amber-500/10 to-orange-500/10",
   },
 ];
 
 export default function Skills() {
   return (
-    <section id="skills" className="py-24 bg-surface">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+    <section id="skills" className="py-24 relative overflow-hidden bg-slate-950/80">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(45,212,191,0.12),transparent_18%),radial-gradient(circle_at_bottom_left,rgba(59,130,246,0.08),transparent_30%)]" />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div className="mb-16 grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
           <div>
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">Technical Expertise</h2>
-            <p className="text-gray-400 max-w-xl text-lg">
-              A comprehensive breakdown of my technical capabilities across various layers 
-              of the software engineering stack.
+            <h2 className="text-5xl font-bold tracking-tight text-white">Skills</h2>
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-text-dim">
+              I am striving to never stop learning and improving across the tools and technologies that power modern products.
             </p>
           </div>
-          <div className="font-mono text-brand text-sm tracking-[0.2em] font-bold uppercase">
-            / Full-Stack Capability
+          <div className="rounded-[2rem] border border-white/10 bg-slate-950/90 p-8 shadow-[0_30px_90px_rgba(15,23,42,0.25)]">
+            <div className="flex flex-wrap gap-3">
+              {skillCategories[0].skills.slice(0, 4).map((skill) => (
+                <span key={skill} className="rounded-full bg-brand/10 px-4 py-2 text-sm font-semibold uppercase tracking-[0.2em] text-brand">
+                  {skill}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {skillCategories.map((category, idx) => (
             <motion.div
               key={idx}
@@ -60,28 +66,34 @@ export default function Skills() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.1 }}
-              whileHover={{ y: -5 }}
-              className="p-8 rounded-2xl bg-brand/[0.03] border border-border relative group transition-all duration-500 hover:border-brand/50 hover:bg-brand/[0.05]"
+              className="overflow-hidden rounded-[2rem] border border-white/10 bg-slate-950/95 p-8 shadow-[0_30px_70px_rgba(15,23,42,0.2)] transition-all hover:-translate-y-2 hover:border-brand/30"
             >
-              <div className="mb-6 w-14 h-14 rounded-xl bg-surface border border-border flex items-center justify-center transition-transform group-hover:scale-110 group-hover:bg-surface-lighter">
-                <category.icon className="text-brand" size={28} />
+              <div className={`mb-6 inline-flex h-14 w-14 items-center justify-center rounded-3xl bg-gradient-to-br ${category.color} border border-white/10 text-brand`}> 
+                <category.icon size={24} />
               </div>
-              
-              <h3 className="text-lg font-bold mb-6 text-text-main group-hover:text-brand transition-colors uppercase tracking-tight">
-                {category.title}
-              </h3>
-              
+              <h3 className="text-xl font-bold text-white mb-4">{category.title}</h3>
               <div className="flex flex-wrap gap-2">
                 {category.skills.map((skill) => (
                   <span
                     key={skill}
-                    className="px-3 py-1.5 rounded-md bg-surface-lighter border border-border text-[10px] font-bold uppercase tracking-wider text-text-dim hover:text-brand hover:border-brand/30 transition-colors"
+                    className="rounded-full border border-white/10 bg-white/5 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-text-dim"
                   >
                     {skill}
                   </span>
                 ))}
               </div>
             </motion.div>
+          ))}
+        </div>
+
+        <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {skillCategories.map((category, idx) => (
+            <div key={idx} className="rounded-3xl border border-white/10 bg-white/5 p-6 text-center transition-all hover:border-brand/40">
+              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-3xl bg-brand/10 text-brand">
+                <category.icon size={24} />
+              </div>
+              <p className="font-semibold text-white">{category.title}</p>
+            </div>
           ))}
         </div>
       </div>

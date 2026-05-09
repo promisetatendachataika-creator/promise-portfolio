@@ -22,7 +22,7 @@ export default function Footer() {
             className="flex items-center gap-2"
           >
             <span className="w-8 h-8 bg-brand rounded-lg flex items-center justify-center text-black text-xs font-black leading-none">PC</span>
-            <span className="text-[10px] font-bold uppercase tracking-tighter text-text-main">Promise Chataika | Engineer</span>
+            <span className="text-[10px] font-bold uppercase tracking-tighter text-text-main">Promise Chataika</span>
           </motion.div>
           
           <div className="text-text-dim text-[10px] font-bold uppercase tracking-[0.3em]">
