@@ -745,35 +745,6 @@ body.ready .fade-up {
   color: var(--ink-2);
 }
 
-/* ---------- Invitation ---------- */
-
-.invite {
-  position: relative;
-  z-index: 2;
-  background: #fff;
-  padding: 8vh var(--gut) 16vh;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.invite h2 {
-  font-size: clamp(2.4rem, 6vw, 5.2rem);
-  font-weight: 800;
-  letter-spacing: -0.045em;
-  line-height: 0.95;
-  max-width: 12em;
-}
-
-.invite p {
-  margin: 1.4rem 0 2.4rem;
-  max-width: 32rem;
-  font-size: clamp(1.15rem, 1.5vw, 1.35rem);
-  line-height: 1.45;
-  color: var(--ink-2);
-}
-
 /* ---------- Contact ---------- */
 
 .contact {
