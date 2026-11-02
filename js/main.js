@@ -17,7 +17,9 @@ document.getElementById('year').textContent = new Date().getFullYear();
 
 function splitLetters(el) {
   const chars = [];
-  el.setAttribute('aria-label', el.textContent.replace(/\s+/g, ' ').trim());
+  // Read <br> as a space, so "Promise<br>Chataika" is announced as two words.
+  const label = [...el.childNodes].map((n) => (n.nodeName === 'BR' ? ' ' : n.textContent)).join('');
+  el.setAttribute('aria-label', label.replace(/\s+/g, ' ').trim());
   const walk = (node, hl) => {
     for (const n of [...node.childNodes]) {
       if (n.nodeType === Node.TEXT_NODE) {

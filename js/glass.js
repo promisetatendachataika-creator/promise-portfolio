@@ -115,9 +115,17 @@ export async function initGlass(section) {
   const articles = [...section.querySelectorAll('.work__list .project')];
   const cuts = makeCuts(articles.length);
 
+  // Wait for the logo and font, but never for more than a second and a half:
+  // some browsers never settle image.decode(), and the glass works without them.
   const logo = new Image();
-  logo.src = 'logo-light.png';
-  await Promise.all([logo.decode().catch(() => {}), document.fonts.load('700 40px Bricolage')]);
+  const logoReady = new Promise((resolve) => {
+    logo.onload = logo.onerror = resolve;
+  });
+  logo.src = new URL('../logo-light.png', import.meta.url).href;
+  await Promise.race([
+    Promise.all([logoReady, document.fonts.load('700 40px Bricolage').catch(() => {})]),
+    new Promise((resolve) => setTimeout(resolve, 1500)),
+  ]);
   await document.fonts.load('500 20px Bricolage');
 
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
