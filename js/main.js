@@ -250,12 +250,12 @@ function hasWebGL() {
 }
 
 if (!reduceMotion && hasWebGL()) {
-  if (matchMedia('(min-width: 900px) and (min-height: 600px)').matches) {
+  if (matchMedia('(min-width: 700px) and (min-height: 520px)').matches) {
     import('./glass.js')
       .then((m) => m.initGlass($('#work')))
       .catch((e) => console.warn('Glass view unavailable, showing the list instead.', e));
   }
-  if (matchMedia('(min-width: 900px) and (min-height: 600px)').matches) {
+  if (matchMedia('(min-width: 700px) and (min-height: 520px)').matches) {
     import('./globe.js')
       .then((m) => m.initGlobe($('#contact')))
       .catch((e) => console.warn('Globe unavailable, showing contact details instead.', e));

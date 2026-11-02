@@ -7,7 +7,8 @@ import { geoEquirectangular, geoPath, geoGraticule10 } from 'd3-geo';
 import { feature, mesh } from 'topojson-client';
 import { clamp, lerp, seg, easeInOut, easeOut, rng } from './util.js';
 
-const ATLAS = 'https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-110m.json';
+// Country outlines from world-atlas 2.0.2 (ISC licence), kept with the site.
+const ATLAS = new URL('../data/countries-110m.json', import.meta.url);
 const ZIMBABWE_ID = '716';
 // Map positions (0 to 1 from the top-left of an equirectangular map).
 const HARARE = { u: (31.05 + 180) / 360, v: (90 + 17.83) / 180 };

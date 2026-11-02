@@ -1346,6 +1346,57 @@ body.ready .fade-up {
   }
 }
 
+/* Globe on narrower screens: no side card, show each value under its label. */
+@media (max-width: 899px) {
+  .contact.is-globe .c-card {
+    display: none;
+  }
+
+  .contact.is-globe .c-list {
+    gap: clamp(16px, 3.4vh, 30px);
+  }
+
+  .contact.is-globe .c-list__value {
+    position: static;
+    width: auto;
+    height: auto;
+    clip-path: none;
+    display: block;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  .contact.is-globe .c-bar {
+    width: calc(100% - 2 * var(--gut));
+    bottom: 5vh;
+    grid-template-columns: 1fr 1fr 1.3fr 56px;
+  }
+
+  .contact.is-globe .c-bar div {
+    padding: 11px 14px;
+    border-bottom: 0;
+    border-right: 1px solid #e3e8e5;
+  }
+
+  .contact.is-globe .c-bar__msg {
+    grid-column: auto;
+  }
+
+  .contact.is-globe .c-bar button {
+    grid-column: auto;
+    height: auto;
+    border-radius: 0 4px 4px 0;
+  }
+
+  .contact.is-globe .c-list {
+    top: 42%;
+  }
+
+  .c-word1 {
+    display: none;
+  }
+}
+
 @media (max-width: 520px) {
   .nav__plain {
     display: none;
