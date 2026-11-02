@@ -8,18 +8,218 @@
       name="description"
       content="Promise Chataika, Computer Science student at the University of Zimbabwe. Projects, skills and contact details."
     />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <script>
-      // Set the theme before the page paints so it doesn't flash.
-      try {
-        var saved = localStorage.getItem('theme');
-        var dark = saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
-        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
-      } catch (e) {}
+    <link rel="icon" href="favicon.png" type="image/png" />
+    <link rel="preload" href="fonts/bricolage.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="fonts/source-serif.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="css/style.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/",
+          "d3-geo": "https://cdn.jsdelivr.net/npm/d3-geo@3.1.1/+esm",
+          "topojson-client": "https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/+esm"
+        }
+      }
     </script>
+    <script type="module" src="js/main.js"></script>
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <div class="atmo" aria-hidden="true"><canvas id="bg" width="96" height="60"></canvas></div>
+
+    <header class="nav" id="nav">
+      <a class="nav__brand" href="#top" aria-label="Promise Chataika, back to top">
+        <img src="logo-dark.png" alt="" width="59" height="32" />
+        <span>Promise Chataika</span>
+      </a>
+      <nav class="nav__links" aria-label="Sections">
+        <a href="#work">Work</a>
+        <a href="#education">Education</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="nav__right">
+        <a class="nav__plain" href="https://github.com/promisetatendachataika-creator" target="_blank" rel="noreferrer">GitHub</a>
+        <div class="navcta">
+          <a class="btn" href="cv.pdf" download="Promise-Chataika-CV.pdf">
+            <span class="lbl">Download CV</span>
+            <span class="dot" aria-hidden="true"><svg viewBox="0 0 12 12"><path d="M4.5 2.5 8 6l-3.5 3.5" /></svg></span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main id="top">
+      <!-- 1. Hero -->
+      <section class="hero" id="hero">
+        <h1 class="hero__name" id="h1">Promise<br />Chataika</h1>
+        <img class="hero__photo fade-up" style="--d: 0.9s" src="me.jpeg" alt="Promise Chataika" width="320" height="400" />
+        <div class="hero__intro fade-up" style="--d: 1.15s">
+          <p class="lede">
+            I study Computer Science at the University of Zimbabwe and live in Harare. Most of what I’ve built so
+            far has been for people around me.
+          </p>
+          <p>I’m looking for a 12-month industrial attachment in software development, networking or IT support.</p>
+        </div>
+        <div class="hero__actions fade-up" style="--d: 1.3s">
+          <a class="btn lg" href="mailto:promisetatendachataika@gmail.com">
+            Email me
+            <span class="dot" aria-hidden="true"><svg viewBox="0 0 12 12"><path d="M4.5 2.5 8 6l-3.5 3.5" /></svg></span>
+          </a>
+          <p class="hero__links">
+            <a href="https://wa.me/263782573320" target="_blank" rel="noreferrer">WhatsApp</a>
+            <a href="cv.pdf" download="Promise-Chataika-CV.pdf">Download my CV</a>
+            <a href="https://www.linkedin.com/in/promise-chataika-03178a335" target="_blank" rel="noreferrer">LinkedIn</a>
+          </p>
+        </div>
+        <div class="tools">
+          <h2 class="tools__title fade-up" style="--d: 1.2s">What I work with</h2>
+          <ul class="tools__grid">
+            <li class="fade-up" style="--d: 1.25s"><b>React</b><span>Web apps</span></li>
+            <li class="fade-up" style="--d: 1.32s"><b>TypeScript</b><span>and JavaScript</span></li>
+            <li class="fade-up" style="--d: 1.39s"><b>Firebase</b><span>Auth, Firestore, Hosting</span></li>
+            <li class="fade-up" style="--d: 1.46s"><b>HTML &amp; CSS</b><span>Tailwind too</span></li>
+            <li class="fade-up" style="--d: 1.42s"><b>Python</b><span>Scripts and ML basics</span></li>
+            <li class="fade-up" style="--d: 1.49s"><b>Java</b><span>University work</span></li>
+            <li class="fade-up" style="--d: 1.56s"><b>Networking</b><span>Cisco Packet Tracer</span></li>
+            <li class="fade-up" style="--d: 1.63s"><b>Git</b><span>GitHub, Netlify</span></li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 2. Pinned statement -->
+      <section class="statement" id="statement">
+        <div class="pin">
+          <p id="stmt">
+            I build software for the people around me:<br />
+            an ordering system for my family’s workshop,<br />
+            a website for a church in Harare,<br />
+            and an app that finds a singer’s key.
+          </p>
+        </div>
+      </section>
+
+      <!-- 3. Work: glass pieces on large screens, a plain list otherwise -->
+      <section class="work" id="work" aria-labelledby="work-title">
+        <canvas class="work__gl" aria-hidden="true"></canvas>
+        <div class="work__static">
+          <h2 id="work-title" class="work__title">Work</h2>
+          <div class="work__list">
+            <article class="project" data-cell="0">
+              <h3>Chats &amp; Sons</h3>
+              <p class="project__status">Live, 2025 to now</p>
+              <p class="project__summary">Website and ordering system for Chats and Sons, my family’s carpentry and joinery workshop in Harare.</p>
+              <p>Customers browse boards, fittings and furniture, place an order and check on it later. The workshop manages the catalogue and incoming orders from an admin side, and there’s a chat page for questions.</p>
+              <p>It also has a cutting list tool. You enter the parts for a job, like kitchen units or a wardrobe, and it works out how many 2750 × 1830 mm boards of each material to buy, with an allowance for waste.</p>
+              <p class="project__stack">React, TypeScript, React Router, Firebase Auth, Firestore, Tailwind CSS</p>
+              <p class="project__links">
+                <a href="https://chataika.web.app" target="_blank" rel="noreferrer">Visit the site</a>
+                <a href="https://github.com/promisetatendachataika-creator/chats-and-sons-app" target="_blank" rel="noreferrer">Source code</a>
+              </p>
+            </article>
+            <article class="project" data-cell="3">
+              <h3>PAOZ Highfield Assembly</h3>
+              <p class="project__status">Live, 2026</p>
+              <p class="project__summary">Website for PAOZ Highfield Assembly, a church in Harare.</p>
+              <p>Content is edited through an admin page I built, so updates don’t need a code change. Photos are stored in Firestore: Cloudinary isn’t available in Zimbabwe, and Firebase’s paid plan needs a bank card, so I worked within the free tier.</p>
+              <p class="project__stack">Firebase Hosting, Firestore</p>
+              <p class="project__links">
+                <a href="https://paoz-highfield.web.app" target="_blank" rel="noreferrer">Visit the site</a>
+              </p>
+            </article>
+            <article class="project" data-cell="2">
+              <h3>Telecom Licence Regulator</h3>
+              <p class="project__status">Live demo</p>
+              <p class="project__summary">A web app for managing telecom licence applications.</p>
+              <p>You can search and filter applications, compare licence types, adjust and track fees, and export the data to CSV. It can also write a compliance report on an application using Google’s Gemini API.</p>
+              <p class="project__stack">React, TypeScript, Firestore, Gemini API</p>
+              <p class="project__links">
+                <a href="https://telecomunication1.netlify.app" target="_blank" rel="noreferrer">Try the demo</a>
+                <a href="https://github.com/promisetatendachataika-creator/Telecom-Licence-Regulator" target="_blank" rel="noreferrer">Source code</a>
+              </p>
+            </article>
+            <article class="project" data-cell="4">
+              <h3>Promota Chords</h3>
+              <p class="project__status">In testing</p>
+              <p class="project__summary">An Android app that listens to someone singing and tells you their key, so you can transpose on the keyboard.</p>
+              <p>I play keyboard for singers, and finding each person’s key by ear slows rehearsals down. Chord finding is the next feature I’m working on.</p>
+              <p class="project__stack">Android</p>
+            </article>
+            <article class="project" data-cell="1">
+              <h3>Python projects</h3>
+              <p class="project__status">Smaller programs</p>
+              <p class="project__summary">Two smaller programs I wrote while learning Python.</p>
+              <p class="project__links">
+                <a href="https://github.com/promisetatendachataika-creator/BankAccountSimulation" target="_blank" rel="noreferrer">Bank account simulation</a>
+                <a href="https://github.com/promisetatendachataika-creator/LIBRARY-MANAGEMENT-SYSTEM" target="_blank" rel="noreferrer">Library management system</a>
+              </p>
+            </article>
+          </div>
+        </div>
+        <div class="work__keys" aria-label="Projects"></div>
+        <div class="work__detail" role="dialog" aria-modal="false" aria-label="Project details" hidden>
+          <button type="button" class="work__back">← Back to all projects</button>
+          <div class="work__detail-body"></div>
+        </div>
+      </section>
+
+      <!-- 4. Education -->
+      <section class="plain" id="education" aria-labelledby="education-title">
+        <h2 id="education-title">Education</h2>
+        <dl class="pairs">
+          <div><dt>BSc (Hons) Computer Science</dt><dd>University of Zimbabwe, 2024 to 2028</dd></div>
+          <div><dt>CS50’s Introduction to Artificial Intelligence with Python</dt><dd>HarvardX</dd></div>
+          <div><dt>Microsoft Skillsbox certification</dt><dd>Microsoft</dd></div>
+          <div><dt>Community service</dt><dd>Technical support and admin help at Raqual Junior School, as part of my degree</dd></div>
+          <div><dt>Languages</dt><dd>English and Shona</dd></div>
+        </dl>
+      </section>
+
+      <!-- 5. Contact: a globe on large screens, a plain list otherwise -->
+      <section class="contact static" id="contact" aria-labelledby="contact-title">
+        <div class="c-word" id="cword" aria-hidden="true">Harare</div>
+        <div class="c-eyebrow" id="ceyebrow" aria-hidden="true">Based in</div>
+        <div class="c-flare" id="cflare" aria-hidden="true"></div>
+        <canvas class="c-gl" id="cgl" aria-hidden="true"></canvas>
+        <canvas class="c-dust" id="cdust" aria-hidden="true"></canvas>
+        <div class="c-pin" id="cpin" aria-hidden="true"><i></i><span>Harare</span></div>
+        <div class="c-word1" id="cword1" aria-hidden="true">Zimbabwe</div>
+
+        <div class="c-head">
+          <h2 id="contact-title">Contact</h2>
+          <p>The quickest way to reach me is WhatsApp or email. I’m based in Harare, Zimbabwe.</p>
+        </div>
+
+        <ul class="c-list" id="clist">
+          <li data-i="0"><span class="c-list__label">Email</span> <a class="c-list__value" href="mailto:promisetatendachataika@gmail.com">promisetatendachataika@gmail.com</a></li>
+          <li data-i="1"><span class="c-list__label">WhatsApp</span> <a class="c-list__value" href="https://wa.me/263782573320" target="_blank" rel="noreferrer">+263 78 257 3320</a></li>
+          <li data-i="2"><span class="c-list__label">Phone</span> <a class="c-list__value" href="tel:+263782573320">+263 78 257 3320</a></li>
+          <li data-i="3"><span class="c-list__label">LinkedIn</span> <a class="c-list__value" href="https://www.linkedin.com/in/promise-chataika-03178a335" target="_blank" rel="noreferrer">promise-chataika</a></li>
+          <li data-i="4"><span class="c-list__label">GitHub</span> <a class="c-list__value" href="https://github.com/promisetatendachataika-creator" target="_blank" rel="noreferrer">promisetatendachataika-creator</a></li>
+        </ul>
+        <div class="c-card" id="ccard" aria-hidden="true">
+          <p class="c-card__label"></p>
+          <p class="c-card__value"></p>
+          <a class="c-card__go" tabindex="-1"></a>
+        </div>
+
+        <form class="c-bar" id="cbar">
+          <div><label for="cname">Your name</label><input id="cname" name="name" autocomplete="name" placeholder="Tendai Moyo" /></div>
+          <div><label for="cmail">Your email</label><input id="cmail" name="email" type="email" autocomplete="email" placeholder="you@company.co.zw" /></div>
+          <div class="c-bar__msg"><label for="cmsg">Message</label><input id="cmsg" name="message" placeholder="We have an attachment opening…" /></div>
+          <button type="submit" aria-label="Send message by email">→</button>
+        </form>
+
+        <p class="c-hint" id="chint" aria-hidden="true">Drag to spin the globe. Click it to get in touch.</p>
+        <div class="c-rail" id="crail">
+          <button type="button" aria-label="Show the globe"></button>
+          <button type="button" aria-label="Show contact details"></button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p class="footer__brand"><img src="logo-light.png" alt="" width="55" height="30" /> © <span id="year">2026</span> Promise Chataika</p>
+      <p><a href="#top">Back to top</a></p>
+    </footer>
   </body>
 </html>
