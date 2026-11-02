@@ -1,4 +1,6 @@
-# Plain static site: no build step, publish the repo as it is.
+# Plain static site: there is nothing to build. This command overrides any
+# old build command saved in the Netlify settings (the site used to need
+# "npm run build"), and the whole repo is published as it is.
 [build]
   publish = "."
-  command = ""
+  command = "echo 'No build step: publishing the files as they are'"
