@@ -1,6 +1,6 @@
-# Plain static site: there is nothing to build. This command overrides any
-# old build command saved in the Netlify settings (the site used to need
-# "npm run build"), and the whole repo is published as it is.
+# The site is plain HTML, CSS and JavaScript, so there's nothing to compile.
+# Netlify's settings for this site still expect a "dist" folder (from the
+# old React version), so the build just copies the site files into dist/.
 [build]
-  publish = "."
-  command = "echo 'No build step: publishing the files as they are'"
+  publish = "dist"
+  command = "rm -rf dist && mkdir dist && cp -r index.html favicon.png logo-dark.png logo-light.png me.jpeg cv.pdf css js fonts data admin dist/"
