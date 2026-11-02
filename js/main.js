@@ -3,6 +3,10 @@
 // loaded on demand, and the page works without them.
 
 import { clamp, lerp, smooth, hexToRgb, mixRgb } from './util.js';
+import { loadContent } from './content.js';
+
+// Projects and certifications come from /data; start loading them straight away.
+const contentReady = loadContent();
 
 const $ = (s) => document.querySelector(s);
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -251,8 +255,8 @@ function hasWebGL() {
 
 if (!reduceMotion && hasWebGL()) {
   if (matchMedia('(min-width: 700px) and (min-height: 520px)').matches) {
-    import('./glass.js')
-      .then((m) => m.initGlass($('#work')))
+    Promise.all([import('./glass.js'), contentReady])
+      .then(([m, projects]) => projects.length && m.initGlass($('#work')))
       .catch((e) => console.warn('Glass view unavailable, showing the list instead.', e));
   }
   if (matchMedia('(min-width: 700px) and (min-height: 520px)').matches) {

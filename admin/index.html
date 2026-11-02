@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Site admin</title>
+    <link rel="icon" href="../favicon.png" type="image/png" />
+    <link rel="stylesheet" href="admin.css" />
+    <script type="module" src="admin.js"></script>
+  </head>
+  <body>
+    <header class="top">
+      <a class="top__brand" href="../"><img src="../logo-dark.png" alt="" height="28" /> Site admin</a>
+      <a class="top__link" href="../" target="_blank" rel="noreferrer">View the site</a>
+    </header>
+
+    <main>
+      <!-- Step 1: connect -->
+      <section class="card" id="connect">
+        <h1>Connect to GitHub</h1>
+        <p class="muted">
+          Changes are saved straight to your <b>promise-portfolio</b> repository, and the site updates from there. Your
+          key is kept only in this browser.
+        </p>
+        <form id="connect-form" class="grid">
+          <label>
+            GitHub access key
+            <input id="token" type="password" autocomplete="off" spellcheck="false" placeholder="github_pat_…" required />
+          </label>
+          <label>
+            Branch
+            <input id="branch" value="main" spellcheck="false" required />
+            <small>Use <b>main</b> for the live site.</small>
+          </label>
+          <div class="row">
+            <button class="btn" type="submit">Connect</button>
+            <button class="btn btn--quiet" type="button" id="forget" hidden>Forget this key</button>
+          </div>
+        </form>
+        <p class="status" id="connect-status" role="status"></p>
+        <details class="help">
+          <summary>How do I get an access key?</summary>
+          <ol>
+            <li>On GitHub, open <b>Settings → Developer settings → Personal access tokens → Fine-grained tokens</b>.</li>
+            <li>Click <b>Generate new token</b>. Give it a name like “Portfolio admin” and an expiry date.</li>
+            <li>Under <b>Repository access</b>, choose <b>Only select repositories</b> and pick <b>promise-portfolio</b>.</li>
+            <li>Under <b>Permissions → Repository permissions</b>, set <b>Contents</b> to <b>Read and write</b>.</li>
+            <li>Click <b>Generate token</b>, copy it, and paste it above. Don’t share it with anyone.</li>
+          </ol>
+        </details>
+      </section>
+
+      <!-- Step 2: edit -->
+      <div id="editor" hidden>
+        <section class="card">
+          <div class="card__head">
+            <h2>Projects</h2>
+            <span class="muted" id="project-count"></span>
+          </div>
+          <p class="muted">The first project gets the biggest piece of glass on the site.</p>
+          <ol class="items" id="project-list"></ol>
+        </section>
+
+        <section class="card" id="project-form-card">
+          <h2 id="project-form-title">Add a project</h2>
+          <form id="project-form" class="grid">
+            <label>
+              Name
+              <input name="name" required placeholder="My new project" />
+            </label>
+            <label>
+              Link
+              <input name="url" type="url" required placeholder="https://…" />
+            </label>
+            <label>
+              Link text
+              <select name="label">
+                <option>Visit the site</option>
+                <option>Try the demo</option>
+                <option>Source code</option>
+                <option>Watch the video</option>
+                <option>Download the app</option>
+              </select>
+            </label>
+
+            <details class="more" id="more">
+              <summary>More details (optional)</summary>
+              <div class="grid">
+                <label>
+                  Status
+                  <input name="status" placeholder="Live, 2026" />
+                </label>
+                <label>
+                  What it is, in one sentence
+                  <input name="summary" placeholder="A marketplace where farmers sell produce directly to buyers." />
+                </label>
+                <label>
+                  More about it
+                  <textarea name="details" rows="4" placeholder="Leave a blank line between paragraphs."></textarea>
+                </label>
+                <label>
+                  Built with
+                  <input name="stack" placeholder="Python, Django, PostgreSQL" />
+                </label>
+                <label>
+                  Source code link
+                  <input name="source" type="url" placeholder="https://github.com/…" />
+                </label>
+                <label>
+                  Other links
+                  <textarea name="extra" rows="2" placeholder="One per line, like: Library management system | https://github.com/…"></textarea>
+                </label>
+              </div>
+            </details>
+
+            <div class="row">
+              <button class="btn" type="submit" id="project-submit">Add project</button>
+              <button class="btn btn--quiet" type="button" id="project-cancel" hidden>Cancel</button>
+            </div>
+          </form>
+        </section>
+
+        <section class="card">
+          <h2>Certifications</h2>
+          <ol class="items" id="cert-list"></ol>
+          <form id="cert-form" class="grid grid--2">
+            <label>
+              Certificate
+              <input name="name" required placeholder="CCNA 2: Switching, Routing and Wireless Essentials" />
+            </label>
+            <label>
+              Given by
+              <input name="issuer" placeholder="Cisco Networking Academy" />
+            </label>
+            <div class="row">
+              <button class="btn" type="submit">Add certificate</button>
+            </div>
+          </form>
+        </section>
+      </div>
+    </main>
+
+    <div class="savebar" id="savebar" hidden>
+      <p id="save-status" role="status">You have changes that aren’t on the site yet.</p>
+      <button class="btn btn--lg" id="save">Save to the site</button>
+    </div>
+  </body>
+</html>

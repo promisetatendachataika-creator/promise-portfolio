@@ -1,36 +1,14 @@
 // The Work section on large screens: the projects printed on thick
 // pieces of smoked glass. The slab tilts toward the cursor, the piece
 // under the pointer lifts, and clicking a piece shatters the panel to
-// show that project. The plain list in the HTML is the source of truth.
+// show that project. The project list (built from data/projects.json)
+// is the source of truth, and the panel is cut into one piece per project.
 
 import * as THREE from 'three';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import { clamp, easeIn, easeOutBack, rng } from './util.js';
+import { makeCuts } from './cuts.js';
 
-// Where the cuts run, in panel coordinates (x right, y down, 0 to 1).
-// Points on the top and bottom edges (t, b) slide sideways, points on the
-// side edges (l, r) slide up and down, and inner junctions (J) move freely.
-const BASE = {
-  TL: [0, 0], TR: [1, 0], BR: [1, 1], BL: [0, 1],
-  tA: [0.36, 0], tB: [0.66, 0],
-  bA: [0.3, 1], bB: [0.68, 1],
-  lA: [0, 0.48], lB: [0, 0.72],
-  rA: [1, 0.33], rB: [1, 0.63],
-  J1: [0.34, 0.5], J2: [0.64, 0.39], J3: [0.4, 0.71], J4: [0.7, 0.66],
-};
-// Nine pieces, one per project, in the same order as the list in the HTML.
-const CELLS = [
-  ['TL', 'tA', 'J1', 'lA'],
-  ['tA', 'tB', 'J2', 'J1'],
-  ['tB', 'TR', 'rA', 'J2'],
-  ['lA', 'J1', 'J3', 'lB'],
-  ['J1', 'J2', 'J4', 'J3'],
-  ['J2', 'rA', 'rB', 'J4'],
-  ['lB', 'J3', 'bA', 'BL'],
-  ['J3', 'J4', 'bB', 'bA'],
-  ['J4', 'rB', 'BR', 'bB'],
-];
-const MOVING = ['tA', 'tB', 'bA', 'bB', 'lA', 'lB', 'rA', 'rB', 'J1', 'J2', 'J3', 'J4'];
 const FLY = 0.72;
 const STAGGER = 0.03;
 
@@ -134,8 +112,8 @@ export async function initGlass(section) {
   const detailBody = section.querySelector('.work__detail-body');
   const backBtn = section.querySelector('.work__back');
   const keys = section.querySelector('.work__keys');
-  const articles = [];
-  section.querySelectorAll('.project').forEach((a) => (articles[+a.dataset.cell] = a));
+  const articles = [...section.querySelectorAll('.work__list .project')];
+  const cuts = makeCuts(articles.length);
 
   const logo = new Image();
   logo.src = 'logo-light.png';
@@ -206,12 +184,6 @@ export async function initGlass(section) {
     t.anisotropy = renderer.capabilities.getMaxAnisotropy();
   }
 
-  const R = rng(11);
-  const drift = {};
-  for (const n of MOVING) {
-    drift[n] = { px: 10 + R() * 10, py: 10 + R() * 10, ax: R() * 6.28, ay: R() * 6.28 };
-  }
-
   const pieces = [];
   function makePiece(isNav) {
     const group = new THREE.Group();
@@ -234,7 +206,7 @@ export async function initGlass(section) {
     return piece;
   }
   makePiece(true);
-  CELLS.forEach(() => makePiece(false));
+  articles.forEach(() => makePiece(false));
 
   let L = null;
 
@@ -271,22 +243,24 @@ export async function initGlass(section) {
     x.clearRect(0, 0, pw, ph);
     x.textBaseline = 'alphabetic';
 
-    CELLS.forEach((cell, ci) => {
+    cuts.polys().forEach((cell, ci) => {
       const art = articles[ci];
       if (!art) return;
-      const hero = ci === 0;
+      const hero = ci === 0 && cuts.featured;
       const title = art.querySelector('h3').textContent;
       const status = art.querySelector('.project__status')?.textContent ?? '';
       const summary = hero ? art.querySelector('.project__summary')?.textContent ?? '' : '';
 
-      const poly = cell.map((n) => [BASE[n][0] * pw, BASE[n][1] * ph]);
+      const poly = cell.map(([u, v]) => [u * pw, v * ph]);
+      const ys = poly.map((q) => q[1]);
+      const cellH = Math.max(...ys) - Math.min(...ys);
       const c = centroid(poly);
       const cy = c[1];
       const span = spanAt(poly, cy);
       const w = (span[1] - span[0]) * 0.74;
       const left = (span[0] + span[1]) / 2 - w / 2;
 
-      let size = hero ? Math.min(pw * 0.046, ph * 0.1) : Math.min(pw * 0.024, ph * 0.06);
+      let size = hero ? Math.min(pw * 0.046, cellH * 0.2) : Math.min(pw * 0.024, cellH * 0.2);
       let lines;
       for (;;) {
         x.font = `700 ${size}px Bricolage`;
@@ -299,7 +273,9 @@ export async function initGlass(section) {
       const small = Math.max(14, 22 * L.S);
       const body = Math.max(15, 27 * L.S);
       x.font = `400 ${body}px Bricolage`;
-      const sumLines = summary ? wrap(x, summary, w) : [];
+      let sumLines = summary ? wrap(x, summary, w) : [];
+      // Drop the summary if it won't fit comfortably in the piece.
+      if (lines.length * size + sumLines.length * body * 1.35 > cellH * 0.6) sumLines = [];
       const blockH = lines.length * lh + small * 1.9 + (sumLines.length ? 18 * L.S + sumLines.length * body * 1.35 : 0);
       let y = cy - blockH / 2 + size * 0.8;
 
@@ -373,37 +349,10 @@ export async function initGlass(section) {
 
   const ptr = { x: 0, y: 0, u: 0.5, v: 0.5, inside: false, amt: 0 };
 
-  function currentPoints(t) {
-    const P = {};
-    for (const [n, [bx, by]] of Object.entries(BASE)) {
-      let x = bx, y = by;
-      const d = drift[n];
-      if (d) {
-        const moveX = n[0] !== 'l' && n[0] !== 'r';
-        const moveY = n[0] !== 't' && n[0] !== 'b';
-        if (moveX) x += Math.sin((t * 2 * Math.PI) / d.px + d.ax) * 0.02;
-        if (moveY) y += Math.sin((t * 2 * Math.PI) / d.py + d.ay) * 0.03;
-        if (ptr.amt > 0.001) {
-          const dx = x - ptr.u;
-          const dy = y - ptr.v;
-          const dist = Math.hypot(dx, dy);
-          if (dist < 0.6 && dist > 1e-4) {
-            const f = 0.04 * (1 - dist / 0.6) * ptr.amt;
-            if (moveX) x += (dx / dist) * f;
-            if (moveY) y += (dy / dist) * f;
-          }
-        }
-      }
-      P[n] = [x, y];
-    }
-    return P;
-  }
-
   function rebuildCells(t) {
-    const P = currentPoints(t);
     const g = L.gap / 2 + L.bevel;
-    CELLS.forEach((cell, ci) => {
-      const poly = inset(cell.map((n) => [P[n][0] * L.bw, P[n][1] * L.panelH]), g);
+    cuts.polys(t, ptr).forEach((cell, ci) => {
+      const poly = inset(cell.map(([u, v]) => [u * L.bw, v * L.panelH]), g);
       setGeometry(pieces[ci + 1], poly, L.bw, L.panelH, L.left, L.panelTop);
     });
   }
@@ -504,8 +453,7 @@ export async function initGlass(section) {
   });
 
   // Keyboard access: hidden buttons that show up when focused.
-  CELLS.forEach((_, ci) => {
-    if (!articles[ci]) return;
+  articles.forEach((_, ci) => {
     const b = document.createElement('button');
     b.type = 'button';
     b.textContent = `Open ${articles[ci].querySelector('h3').textContent}`;

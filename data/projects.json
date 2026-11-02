@@ -1,0 +1,146 @@
+[
+  {
+    "name": "Murimi Intelligent Hub",
+    "status": "On GitHub",
+    "summary": "A Django platform that connects farmers, landowners, investors and transport drivers in Zimbabwe.",
+    "details": [
+      "Everyone gets a verified account and their own dashboard. Field officers check people and land before a deal goes ahead, and IDs, title deeds and farm photos are uploaded to private storage for staff to review.",
+      "Farm projects have funding targets and milestones, staff post crop prices in US$ and ZiG, and haulage jobs are matched to drivers’ truck sizes. Phone numbers are verified with codes sent over WhatsApp.",
+      "The back end has a 21-endpoint JSON API and 40 automated tests."
+    ],
+    "stack": "Python, Django, PostgreSQL, WhatsApp Cloud API, HTML, CSS, JavaScript",
+    "links": [
+      {
+        "label": "Source code",
+        "url": "https://github.com/promisetatendachataika-creator/murimi-platform"
+      }
+    ]
+  },
+  {
+    "name": "Chats & Sons",
+    "status": "Live, 2025 to now",
+    "summary": "Website and ordering system for Chats and Sons, my family’s carpentry and joinery workshop in Harare.",
+    "details": [
+      "Customers browse boards, fittings and furniture, then confirm their order on WhatsApp. The workshop manages the catalogue and incoming orders from an admin side. I took the product photos myself.",
+      "It also has a cutting list tool. You enter the parts for a job, like kitchen units or a wardrobe, and it works out how many 2750 × 1830 mm boards of each material to buy, with an allowance for waste."
+    ],
+    "stack": "React, TypeScript, React Router, Firebase Auth, Firestore, Tailwind CSS",
+    "links": [
+      {
+        "label": "Visit the site",
+        "url": "https://chataika.web.app"
+      },
+      {
+        "label": "Source code",
+        "url": "https://github.com/promisetatendachataika-creator/chats-and-sons-app"
+      }
+    ]
+  },
+  {
+    "name": "Murimi Farm ERP",
+    "status": "Live",
+    "summary": "Farm management for mid-sized Zimbabwean farms.",
+    "details": [
+      "It covers farms, fields, seasons and crop plans, inventory, and a team with roles. Payroll works out PAYE and NSSA, invoices include VAT, and reports handle US$, ZiG and rand.",
+      "There’s also an Android app that works offline."
+    ],
+    "stack": "Python, Django, Android",
+    "links": [
+      {
+        "label": "Visit the site",
+        "url": "https://promota.pythonanywhere.com"
+      },
+      {
+        "label": "Source code",
+        "url": "https://github.com/promisetatendachataika-creator/murimi-erp"
+      }
+    ]
+  },
+  {
+    "name": "Murimi Market",
+    "status": "On GitHub",
+    "summary": "A marketplace where Zimbabwean farmers sell produce directly to buyers at a fair price.",
+    "details": [
+      "Farmers list what they have, or what will be ready within two weeks, and buyers browse by product and province and make offers. A fair-price meter shows how an offer compares. Buyers can also post what they need, and several farmers can each supply part of it.",
+      "Nobody’s phone number is shown until an offer is accepted. It also has ratings and safe order handling, and 122 automated tests."
+    ],
+    "stack": "Python, Django, HTML, CSS, JavaScript",
+    "links": [
+      {
+        "label": "Source code",
+        "url": "https://github.com/promisetatendachataika-creator/murimi-marketplace"
+      }
+    ]
+  },
+  {
+    "name": "Smart vehicle access control",
+    "status": "IoT project",
+    "summary": "An automated system that controls which vehicles can get through a gate.",
+    "details": [
+      "I designed and built it with an Arduino, sensors and the hardware around them."
+    ],
+    "stack": "Arduino, sensors",
+    "links": []
+  },
+  {
+    "name": "PAOZ Highfield Assembly",
+    "status": "Live, 2026",
+    "summary": "Website for PAOZ Highfield Assembly, a church in Harare.",
+    "details": [
+      "Content is edited through an admin page I built, so updates don’t need a code change. Photos are stored in Firestore: Cloudinary isn’t available in Zimbabwe, and Firebase’s paid plan needs a bank card, so I worked within the free tier."
+    ],
+    "stack": "Firebase Hosting, Firestore",
+    "links": [
+      {
+        "label": "Visit the site",
+        "url": "https://paoz-highfield.web.app"
+      }
+    ]
+  },
+  {
+    "name": "Telecom Licence Regulator",
+    "status": "Live demo",
+    "summary": "A web app for managing telecom licence applications.",
+    "details": [
+      "You can search and filter applications, compare licence types, adjust and track fees, and export the data to CSV. It can also write a compliance report on an application using Google’s Gemini API."
+    ],
+    "stack": "React, TypeScript, Firestore, Gemini API",
+    "links": [
+      {
+        "label": "Try the demo",
+        "url": "https://telecomunication1.netlify.app"
+      },
+      {
+        "label": "Source code",
+        "url": "https://github.com/promisetatendachataika-creator/Telecom-Licence-Regulator"
+      }
+    ]
+  },
+  {
+    "name": "Promota Chords",
+    "status": "In testing",
+    "summary": "An Android app that listens to someone singing and tells you their key, so you can transpose on the keyboard.",
+    "details": [
+      "I play keyboard for singers, and finding each person’s key by ear slows rehearsals down. Chord finding is the next feature I’m working on."
+    ],
+    "stack": "Android",
+    "links": []
+  },
+  {
+    "name": "Python projects",
+    "status": "Smaller programs",
+    "summary": "Two smaller programs I wrote while learning Python.",
+    "details": [],
+    "stack": "Python",
+    "links": [
+      {
+        "label": "Bank account simulation",
+        "url": "https://github.com/promisetatendachataika-creator/BankAccountSimulation"
+      },
+      {
+        "label": "Library management system",
+        "url": "https://github.com/promisetatendachataika-creator/LIBRARY-MANAGEMENT-SYSTEM"
+      }
+    ]
+  }
+]
