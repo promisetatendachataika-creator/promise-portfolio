@@ -55,10 +55,10 @@
         <img class="hero__photo fade-up" style="--d: 0.9s" src="me.jpeg" alt="Promise Chataika" width="320" height="400" />
         <div class="hero__intro fade-up" style="--d: 1.15s">
           <p class="lede">
-            I study Computer Science at the University of Zimbabwe and live in Harare. Most of what I’ve built so
-            far has been for people around me.
+            I study Computer Science at the University of Zimbabwe and live in Harare. I build web apps, farm
+            management tools and small IoT systems, mostly in Python and Django.
           </p>
-          <p>I’m looking for a 12-month industrial attachment in software development, networking or IT support.</p>
+          <p>I’m looking for a 12-month industrial attachment in software engineering, networking or IT support, and I can start straight away.</p>
         </div>
         <div class="hero__actions fade-up" style="--d: 1.3s">
           <a class="btn lg" href="mailto:promisetatendachataika@gmail.com">
@@ -74,14 +74,14 @@
         <div class="tools">
           <h2 class="tools__title fade-up" style="--d: 1.2s">What I work with</h2>
           <ul class="tools__grid">
-            <li class="fade-up" style="--d: 1.25s"><b>React</b><span>Web apps</span></li>
-            <li class="fade-up" style="--d: 1.32s"><b>TypeScript</b><span>and JavaScript</span></li>
-            <li class="fade-up" style="--d: 1.39s"><b>Firebase</b><span>Auth, Firestore, Hosting</span></li>
-            <li class="fade-up" style="--d: 1.46s"><b>HTML &amp; CSS</b><span>Tailwind too</span></li>
-            <li class="fade-up" style="--d: 1.42s"><b>Python</b><span>Scripts and ML basics</span></li>
-            <li class="fade-up" style="--d: 1.49s"><b>Java</b><span>University work</span></li>
-            <li class="fade-up" style="--d: 1.56s"><b>Networking</b><span>Cisco Packet Tracer</span></li>
-            <li class="fade-up" style="--d: 1.63s"><b>Git</b><span>GitHub, Netlify</span></li>
+            <li class="fade-up" style="--d: 1.25s"><b>Python</b><span>Django, automated tests</span></li>
+            <li class="fade-up" style="--d: 1.32s"><b>JavaScript</b><span>React, TypeScript</span></li>
+            <li class="fade-up" style="--d: 1.39s"><b>SQL</b><span>PostgreSQL, MySQL</span></li>
+            <li class="fade-up" style="--d: 1.46s"><b>Java</b><span>University work</span></li>
+            <li class="fade-up" style="--d: 1.42s"><b>HTML &amp; CSS</b><span>WordPress, Elementor</span></li>
+            <li class="fade-up" style="--d: 1.49s"><b>Firebase</b><span>Auth, Firestore, Hosting</span></li>
+            <li class="fade-up" style="--d: 1.56s"><b>Networking</b><span>Cisco CCNA</span></li>
+            <li class="fade-up" style="--d: 1.63s"><b>Arduino</b><span>IoT and sensors</span></li>
           </ul>
         </div>
       </section>
@@ -90,10 +90,10 @@
       <section class="statement" id="statement">
         <div class="pin">
           <p id="stmt">
-            I build software for the people around me:<br />
-            an ordering system for my family’s workshop,<br />
-            a website for a church in Harare,<br />
-            and an app that finds a singer’s key.
+            Tell me what you need, and I’ll build it:<br />
+            for your farm, your shop, your church or your school.<br />
+            Bring your idea, however big or small,<br />
+            and let’s build something that inspires people.
           </p>
         </div>
       </section>
@@ -105,10 +105,22 @@
           <h2 id="work-title" class="work__title">Work</h2>
           <div class="work__list">
             <article class="project" data-cell="0">
+              <h3>Murimi Intelligent Hub</h3>
+              <p class="project__status">On GitHub</p>
+              <p class="project__summary">A Django platform that connects farmers, landowners, investors and transport drivers in Zimbabwe.</p>
+              <p>Everyone gets a verified account and their own dashboard. Field officers check people and land before a deal goes ahead, and IDs, title deeds and farm photos are uploaded to private storage for staff to review.</p>
+              <p>Farm projects have funding targets and milestones, staff post crop prices in US$ and ZiG, and haulage jobs are matched to drivers’ truck sizes. Phone numbers are verified with codes sent over WhatsApp.</p>
+              <p>The back end has a 21-endpoint JSON API and 40 automated tests.</p>
+              <p class="project__stack">Python, Django, PostgreSQL, WhatsApp Cloud API, HTML, CSS, JavaScript</p>
+              <p class="project__links">
+                <a href="https://github.com/promisetatendachataika-creator/murimi-platform" target="_blank" rel="noreferrer">Source code</a>
+              </p>
+            </article>
+            <article class="project" data-cell="1">
               <h3>Chats &amp; Sons</h3>
               <p class="project__status">Live, 2025 to now</p>
               <p class="project__summary">Website and ordering system for Chats and Sons, my family’s carpentry and joinery workshop in Harare.</p>
-              <p>Customers browse boards, fittings and furniture, place an order and check on it later. The workshop manages the catalogue and incoming orders from an admin side, and there’s a chat page for questions.</p>
+              <p>Customers browse boards, fittings and furniture, then confirm their order on WhatsApp. The workshop manages the catalogue and incoming orders from an admin side. I took the product photos myself.</p>
               <p>It also has a cutting list tool. You enter the parts for a job, like kitchen units or a wardrobe, and it works out how many 2750 × 1830 mm boards of each material to buy, with an allowance for waste.</p>
               <p class="project__stack">React, TypeScript, React Router, Firebase Auth, Firestore, Tailwind CSS</p>
               <p class="project__links">
@@ -116,7 +128,37 @@
                 <a href="https://github.com/promisetatendachataika-creator/chats-and-sons-app" target="_blank" rel="noreferrer">Source code</a>
               </p>
             </article>
+            <article class="project" data-cell="2">
+              <h3>Murimi Farm ERP</h3>
+              <p class="project__status">Live</p>
+              <p class="project__summary">Farm management for mid-sized Zimbabwean farms.</p>
+              <p>It covers farms, fields, seasons and crop plans, inventory, and a team with roles. Payroll works out PAYE and NSSA, invoices include VAT, and reports handle US$, ZiG and rand.</p>
+              <p>There’s also an Android app that works offline.</p>
+              <p class="project__stack">Python, Django, Android</p>
+              <p class="project__links">
+                <a href="https://promota.pythonanywhere.com" target="_blank" rel="noreferrer">Visit the site</a>
+                <a href="https://github.com/promisetatendachataika-creator/murimi-erp" target="_blank" rel="noreferrer">Source code</a>
+              </p>
+            </article>
             <article class="project" data-cell="3">
+              <h3>Murimi Market</h3>
+              <p class="project__status">On GitHub</p>
+              <p class="project__summary">A marketplace where Zimbabwean farmers sell produce directly to buyers at a fair price.</p>
+              <p>Farmers list what they have, or what will be ready within two weeks, and buyers browse by product and province and make offers. A fair-price meter shows how an offer compares. Buyers can also post what they need, and several farmers can each supply part of it.</p>
+              <p>Nobody’s phone number is shown until an offer is accepted. It also has ratings and safe order handling, and 122 automated tests.</p>
+              <p class="project__stack">Python, Django, HTML, CSS, JavaScript</p>
+              <p class="project__links">
+                <a href="https://github.com/promisetatendachataika-creator/murimi-marketplace" target="_blank" rel="noreferrer">Source code</a>
+              </p>
+            </article>
+            <article class="project" data-cell="4">
+              <h3>Smart vehicle access control</h3>
+              <p class="project__status">IoT project</p>
+              <p class="project__summary">An automated system that controls which vehicles can get through a gate.</p>
+              <p>I designed and built it with an Arduino, sensors and the hardware around them.</p>
+              <p class="project__stack">Arduino, sensors</p>
+            </article>
+            <article class="project" data-cell="5">
               <h3>PAOZ Highfield Assembly</h3>
               <p class="project__status">Live, 2026</p>
               <p class="project__summary">Website for PAOZ Highfield Assembly, a church in Harare.</p>
@@ -126,7 +168,7 @@
                 <a href="https://paoz-highfield.web.app" target="_blank" rel="noreferrer">Visit the site</a>
               </p>
             </article>
-            <article class="project" data-cell="2">
+            <article class="project" data-cell="6">
               <h3>Telecom Licence Regulator</h3>
               <p class="project__status">Live demo</p>
               <p class="project__summary">A web app for managing telecom licence applications.</p>
@@ -137,17 +179,18 @@
                 <a href="https://github.com/promisetatendachataika-creator/Telecom-Licence-Regulator" target="_blank" rel="noreferrer">Source code</a>
               </p>
             </article>
-            <article class="project" data-cell="4">
+            <article class="project" data-cell="7">
               <h3>Promota Chords</h3>
               <p class="project__status">In testing</p>
               <p class="project__summary">An Android app that listens to someone singing and tells you their key, so you can transpose on the keyboard.</p>
               <p>I play keyboard for singers, and finding each person’s key by ear slows rehearsals down. Chord finding is the next feature I’m working on.</p>
               <p class="project__stack">Android</p>
             </article>
-            <article class="project" data-cell="1">
+            <article class="project" data-cell="8">
               <h3>Python projects</h3>
               <p class="project__status">Smaller programs</p>
               <p class="project__summary">Two smaller programs I wrote while learning Python.</p>
+              <p class="project__stack">Python</p>
               <p class="project__links">
                 <a href="https://github.com/promisetatendachataika-creator/BankAccountSimulation" target="_blank" rel="noreferrer">Bank account simulation</a>
                 <a href="https://github.com/promisetatendachataika-creator/LIBRARY-MANAGEMENT-SYSTEM" target="_blank" rel="noreferrer">Library management system</a>
@@ -166,11 +209,27 @@
       <section class="plain" id="education" aria-labelledby="education-title">
         <h2 id="education-title">Education</h2>
         <dl class="pairs">
-          <div><dt>BSc (Hons) Computer Science</dt><dd>University of Zimbabwe, 2024 to 2028</dd></div>
-          <div><dt>CS50’s Introduction to Artificial Intelligence with Python</dt><dd>HarvardX</dd></div>
+          <div><dt>BSc (Hons) Computer Science</dt><dd>University of Zimbabwe, August 2024 to 2028 (expected)</dd></div>
+          <div><dt>ZIMSEC Advanced Level</dt><dd>Highfield 2 High School: Pure Mathematics (A), Computer Science (A), Business Studies (A). Senior prefect.</dd></div>
+          <div><dt>ZIMSEC Ordinary Level</dt><dd>Mhuriimwe High School: 8 subjects, including Mathematics and English Language</dd></div>
+        </dl>
+      </section>
+
+      <section class="plain plain--tight" aria-labelledby="certs-title">
+        <h2 id="certs-title">Certifications</h2>
+        <dl class="pairs">
+          <div><dt>CCNA 1: Introduction to Networks</dt><dd>Cisco Networking Academy</dd></div>
+          <div><dt>CS50’s Introduction to Artificial Intelligence with Python</dt><dd>Harvard University</dd></div>
           <div><dt>Microsoft Skillsbox certification</dt><dd>Microsoft</dd></div>
-          <div><dt>Community service</dt><dd>Technical support and admin help at Raqual Junior School, as part of my degree</dd></div>
-          <div><dt>Languages</dt><dd>English and Shona</dd></div>
+        </dl>
+      </section>
+
+      <section class="plain plain--tight" aria-labelledby="experience-title">
+        <h2 id="experience-title">Experience</h2>
+        <dl class="pairs">
+          <div><dt>Community service representative</dt><dd>Raqual Junior School, Budiriro, 2024 to 2025. Technical support and admin help for the school’s staff.</dd></div>
+          <div><dt>IT support</dt><dd>For my family’s business and my church: I look after their computers and digital tools.</dd></div>
+          <div><dt>Languages</dt><dd>English (fluent), Shona (native), Portuguese and Ndebele (beginner)</dd></div>
         </dl>
       </section>
 

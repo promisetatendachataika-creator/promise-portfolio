@@ -713,7 +713,7 @@ body.ready .fade-up {
   position: relative;
   z-index: 2;
   background: #fff;
-  padding: 14vh var(--gut);
+  padding: 14vh var(--gut) 6vh;
   display: grid;
   grid-template-columns: 13rem minmax(0, 40rem);
   column-gap: 3rem;
@@ -721,6 +721,14 @@ body.ready .fade-up {
 
 .plain h2 {
   font-size: 1.6rem;
+}
+
+.plain--tight {
+  padding-top: 2vh;
+}
+
+.plain:last-of-type {
+  padding-bottom: 14vh;
 }
 
 .pairs > div + div {

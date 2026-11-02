@@ -230,7 +230,8 @@ if (reduceMotion) {
         for (const key of ['tip', 'half', 'soft']) cur[key] += (tgt[key] - cur[key]) * 0.12;
       }
       // Once the dark sections cover the screen there is nothing to draw.
-      if (q < 2.6) drawBowl(now);
+      const settling = Math.abs(cur.tip - tgt.tip) + Math.abs(cur.half - tgt.half) > 0.002;
+      if (q < 2.6 || settling) drawBowl(now);
       requestAnimationFrame(loop);
     };
     requestAnimationFrame(loop);

@@ -8,20 +8,29 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import { clamp, easeIn, easeOutBack, rng } from './util.js';
 
 // Where the cuts run, in panel coordinates (x right, y down, 0 to 1).
+// Points on the top and bottom edges (t, b) slide sideways, points on the
+// side edges (l, r) slide up and down, and inner junctions (J) move freely.
 const BASE = {
   TL: [0, 0], TR: [1, 0], BR: [1, 1], BL: [0, 1],
-  tAB: [0.22, 0], tBC: [0.515, 0], tCE: [0.84, 0],
-  bAD: [0.34, 1], bDE: [0.865, 1],
-  J0: [0.385, 0.72], J1: [0.48, 0.62], J2: [0.716, 0.49],
+  tA: [0.36, 0], tB: [0.66, 0],
+  bA: [0.3, 1], bB: [0.68, 1],
+  lA: [0, 0.48], lB: [0, 0.72],
+  rA: [1, 0.33], rB: [1, 0.63],
+  J1: [0.34, 0.5], J2: [0.64, 0.39], J3: [0.4, 0.71], J4: [0.7, 0.66],
 };
+// Nine pieces, one per project, in the same order as the list in the HTML.
 const CELLS = [
-  ['TL', 'tAB', 'J0', 'bAD', 'BL'],
-  ['tAB', 'tBC', 'J1', 'J0'],
-  ['tBC', 'tCE', 'J2', 'J1'],
-  ['J0', 'J1', 'J2', 'bDE', 'bAD'],
-  ['tCE', 'TR', 'BR', 'bDE', 'J2'],
+  ['TL', 'tA', 'J1', 'lA'],
+  ['tA', 'tB', 'J2', 'J1'],
+  ['tB', 'TR', 'rA', 'J2'],
+  ['lA', 'J1', 'J3', 'lB'],
+  ['J1', 'J2', 'J4', 'J3'],
+  ['J2', 'rA', 'rB', 'J4'],
+  ['lB', 'J3', 'bA', 'BL'],
+  ['J3', 'J4', 'bB', 'bA'],
+  ['J4', 'rB', 'BR', 'bB'],
 ];
-const MOVING = ['tAB', 'tBC', 'tCE', 'bAD', 'bDE', 'J0', 'J1', 'J2'];
+const MOVING = ['tA', 'tB', 'bA', 'bB', 'lA', 'lB', 'rA', 'rB', 'J1', 'J2', 'J3', 'J4'];
 const FLY = 0.72;
 const STAGGER = 0.03;
 
@@ -272,18 +281,18 @@ export async function initGlass(section) {
 
       const poly = cell.map((n) => [BASE[n][0] * pw, BASE[n][1] * ph]);
       const c = centroid(poly);
-      const cy = hero ? ph * 0.4 : c[1];
+      const cy = c[1];
       const span = spanAt(poly, cy);
       const w = (span[1] - span[0]) * 0.74;
       const left = (span[0] + span[1]) / 2 - w / 2;
 
-      let size = hero ? Math.min(pw * 0.06, ph * 0.15) : Math.min(pw * 0.03, ph * 0.08);
+      let size = hero ? Math.min(pw * 0.046, ph * 0.1) : Math.min(pw * 0.024, ph * 0.06);
       let lines;
       for (;;) {
         x.font = `700 ${size}px Bricolage`;
         lines = wrap(x, title, w);
         const widest = Math.max(...lines.map((l) => x.measureText(l).width));
-        if ((lines.length <= (hero ? 2 : 3) && widest <= w) || size < 14) break;
+        if ((lines.length <= 2 && widest <= w) || size < 14) break;
         size *= 0.93;
       }
       const lh = size * 0.98;
@@ -320,15 +329,6 @@ export async function initGlass(section) {
       }
     });
 
-    // Small print in the corners, as on a printed page.
-    const tiny = Math.max(11, 14 * L.S);
-    x.font = `500 ${tiny}px Bricolage`;
-    x.fillStyle = 'rgba(255,255,255,.34)';
-    x.textAlign = 'left';
-    x.fillText('Harare, Zimbabwe', 30 * L.S, ph - 28 * L.S);
-    x.textAlign = 'right';
-    x.fillText('2025 to 2026', pw - 30 * L.S, ph - 28 * L.S);
-    x.textAlign = 'left';
     pageTex.needsUpdate = true;
   }
 
@@ -379,16 +379,18 @@ export async function initGlass(section) {
       let x = bx, y = by;
       const d = drift[n];
       if (d) {
-        x += Math.sin((t * 2 * Math.PI) / d.px + d.ax) * 0.03;
-        if (n[0] === 'J') y += Math.sin((t * 2 * Math.PI) / d.py + d.ay) * 0.05;
+        const moveX = n[0] !== 'l' && n[0] !== 'r';
+        const moveY = n[0] !== 't' && n[0] !== 'b';
+        if (moveX) x += Math.sin((t * 2 * Math.PI) / d.px + d.ax) * 0.02;
+        if (moveY) y += Math.sin((t * 2 * Math.PI) / d.py + d.ay) * 0.03;
         if (ptr.amt > 0.001) {
           const dx = x - ptr.u;
           const dy = y - ptr.v;
           const dist = Math.hypot(dx, dy);
           if (dist < 0.6 && dist > 1e-4) {
-            const f = 0.05 * (1 - dist / 0.6) * ptr.amt;
-            x += (dx / dist) * f;
-            if (n[0] === 'J') y += (dy / dist) * f;
+            const f = 0.04 * (1 - dist / 0.6) * ptr.amt;
+            if (moveX) x += (dx / dist) * f;
+            if (moveY) y += (dy / dist) * f;
           }
         }
       }
@@ -525,10 +527,17 @@ export async function initGlass(section) {
     ptr.inside = true;
   });
   section.addEventListener('pointerleave', () => (ptr.inside = false));
-  canvas.addEventListener('click', () => {
-    if (hovered > 0) {
+  // Work out which piece was clicked from the click itself, not the last frame.
+  canvas.addEventListener('click', (e) => {
+    if (mode !== 'idle') return;
+    const r = section.getBoundingClientRect();
+    ndc.set(((e.clientX - r.left) / L.W) * 2 - 1, -((e.clientY - r.top) / L.H) * 2 + 1);
+    raycaster.setFromCamera(ndc, camera);
+    const hit = raycaster.intersectObjects(pieces.map((p) => p.body), false)[0];
+    const i = hit ? hit.object.userData.index : -1;
+    if (i > 0) {
       lastKey = null;
-      open(hovered - 1);
+      open(i - 1);
     }
   });
 
@@ -561,8 +570,9 @@ export async function initGlass(section) {
     resizeTimer = setTimeout(layout, 120);
   });
 
-  layout();
+  // Switch the section to its full-screen glass layout before measuring it.
   section.classList.add('is-glass');
+  layout();
 
   let last = performance.now();
   let lastBuild = 0;
